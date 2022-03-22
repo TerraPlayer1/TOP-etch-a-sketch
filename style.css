@@ -32,3 +32,10 @@ body {
   height: 600px;
   width: 600px;
 }
+
+button {
+  margin-bottom: 6px;
+  border-style: none;
+  border-radius: 10px;
+  background-color: rgb(204, 202, 202);
+}

@@ -8,7 +8,6 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: rgba(68, 32, 2, 0.664);
 }
 
 .container {
@@ -16,7 +15,6 @@ body {
   justify-content: center;
   align-items: flex-start;
   padding: 10px;
-  background-color: rgba(68, 32, 2, 0.562);
 }
 
 .settings {
@@ -26,7 +24,6 @@ body {
 }
 
 .drawing-area {
-  background-color: white;
   height: 600px;
   width: 600px;
 }

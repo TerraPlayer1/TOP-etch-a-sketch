@@ -1,6 +1,8 @@
 h1 {
   text-align: center;
   margin-bottom: 50px;
+  color: aliceblue;
+  text-shadow: 2px 2px 4px black;
 }
 
 body {
@@ -8,6 +10,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: rgba(68, 32, 2, 0.664);
 }
 
 .container {
@@ -15,6 +18,7 @@ body {
   justify-content: center;
   align-items: flex-start;
   padding: 10px;
+  background-color: rgba(68, 32, 2, 0.562);
 }
 
 .settings {
@@ -24,6 +28,7 @@ body {
 }
 
 .drawing-area {
+  background-color: white;
   height: 600px;
   width: 600px;
 }

@@ -43,6 +43,7 @@ button {
 
 button:hover {
   background-image: linear-gradient(rgba(0, 0, 0, 0.2) 0 0);
+  border-color: rgba(146, 105, 71, 0.301);
 }
 
 button:active {

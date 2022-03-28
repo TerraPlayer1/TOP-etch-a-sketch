@@ -1,3 +1,8 @@
+:root {
+  --grid-rows: 1;
+  --grid-cols: 1;
+}
+
 h1 {
   text-align: center;
   margin-bottom: 50px;
@@ -31,6 +36,13 @@ body {
   background-color: white;
   height: 600px;
   width: 600px;
+  display: grid;
+  grid-template-rows: repeat(var(--grid-rows), 1fr);
+  grid-template-columns: repeat(var(--grid-cols), 1fr);
+}
+
+.grid-item {
+  border: 1px solid black;
 }
 
 button {

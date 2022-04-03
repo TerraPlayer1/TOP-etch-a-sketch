@@ -61,7 +61,7 @@ function drawBlack() {
       });
   };
 };
-
+drawBlack();
 function drawRGB() {  // To do: Remove black from color pool
   for (c = 0; c < grid.length; c++) {
     grid[c].addEventListener('mouseover',function(){

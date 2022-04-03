@@ -55,3 +55,9 @@ function delRows() {
 };
 
 makeRows(slider.value, slider.value);
+
+const clear = document.getElementById("clear");
+clear.onclick = function() {
+  drawingArea.innerHTML = "";
+  makeRows(slider.value, slider.value);
+}

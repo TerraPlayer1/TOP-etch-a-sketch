@@ -17,7 +17,6 @@ slider.onchange = function() {
 function makeGrid(rows, cols) {
   drawingArea.style.setProperty('--grid-rows', rows); // Update root css values
   drawingArea.style.setProperty('--grid-cols', cols);
-
   for (c = 0; c < (rows * cols); c++) {         // Create grid
     let cell = document.createElement("div");
     drawingArea.appendChild(cell).className = "grid-item";
@@ -26,6 +25,7 @@ function makeGrid(rows, cols) {
 function resetGrid() {
   drawingArea.innerHTML = "";
   makeGrid(slider.value, slider.value);
+  drawBlack();
 };
 
 makeGrid(slider.value, slider.value);

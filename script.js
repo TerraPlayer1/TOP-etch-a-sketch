@@ -10,35 +10,73 @@ slider.oninput = function() {
   output.innerHTML = this.value + " * " + this.value;
 }
 
-// Update the current drawingArea
 slider.onchange = function() {
-  delRows();
-  makeRows(this.value, this.value);
+  resetGrid();
 } 
 
-
-let draw = false;
-let color = "blue";
-//Build the rows for the drawing area
-function makeRows(rows, cols) {
+function makeGrid(rows, cols) {
   drawingArea.style.setProperty('--grid-rows', rows); // Update root css values
   drawingArea.style.setProperty('--grid-cols', cols);
+
   for (c = 0; c < (rows * cols); c++) {         // Create grid
     let cell = document.createElement("div");
     drawingArea.appendChild(cell).className = "grid-item";
+}};
 
-    
-    cell.addEventListener('mouseover', function(){
+function resetGrid() {
+  drawingArea.innerHTML = "";
+  makeGrid(slider.value, slider.value);
+};
+
+makeGrid(slider.value, slider.value);
+
+//Here be buttons
+const clear = document.getElementById("clear");
+clear.onclick = function() {
+  resetGrid()
+}
+
+const black = document.getElementById("black");
+black.onclick = function() {
+  drawBlack();
+}
+
+const rgb = document.getElementById("rgb");
+rgb.onclick = function() {
+  drawRGB();
+}
+// To do: Here go the rest of the button function calls
+
+
+let grid = drawingArea.children;
+let draw = false;
+function drawBlack() {
+  for (c = 0; c < grid.length; c++) {
+    grid[c].addEventListener('mouseover',function(){
       if(!draw) return
-      cell.style.backgroundColor = color;
-  })
-  cell.addEventListener('mousedown', function(){
-      cell.style.backgroundColor = color;
-  })
+      this.style.backgroundColor = "black";
+      });
+    grid[c].addEventListener('mousedown',function(){
+      this.style.backgroundColor = "black";
+      });
+  };
+};
 
-  drawingArea.appendChild(cell)
+function drawRGB() {  // To do: Remove black from color pool
+  for (c = 0; c < grid.length; c++) {
+    grid[c].addEventListener('mouseover',function(){
+      if(!draw) return
+        let randomColor = Math.floor(Math.random()*16777215).toString(16);
+        this.style.backgroundColor = "#" + randomColor;
+      });
+    grid[c].addEventListener('mousedown',function(){
+        let randomColor = Math.floor(Math.random()*16777215).toString(16);
+        this.style.backgroundColor = "#" + randomColor;
+      });
+  };
 };
-};
+// To do: Here go the rest of the button functions
+
 
 window.addEventListener("mousedown", function(){
   draw = true
@@ -46,24 +84,3 @@ window.addEventListener("mousedown", function(){
 window.addEventListener("mouseup", function(){
   draw = false
 })
-
-function delRows() {
-  while (drawingArea.hasChildNodes()){
-    drawingArea.removeChild(drawingArea.firstChild);
-  }
-  container.appendChild(drawingArea);
-};
-
-makeRows(slider.value, slider.value);
-
-const clear = document.getElementById("clear");
-clear.onclick = function() {
-  drawingArea.innerHTML = "";
-  makeRows(slider.value, slider.value);
-}
-
-const black = document.getElementById("black");
-black.onclick = function() {
-  color = "black";
-}
-

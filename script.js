@@ -18,7 +18,7 @@ slider.onchange = function() {
 
 
 let draw = false;
-let color = "black";
+let color = "blue";
 //Build the rows for the drawing area
 function makeRows(rows, cols) {
   drawingArea.style.setProperty('--grid-rows', rows); // Update root css values
@@ -61,3 +61,9 @@ clear.onclick = function() {
   drawingArea.innerHTML = "";
   makeRows(slider.value, slider.value);
 }
+
+const black = document.getElementById("black");
+black.onclick = function() {
+  color = "black";
+}
+

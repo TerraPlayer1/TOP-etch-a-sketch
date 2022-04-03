@@ -43,6 +43,11 @@ body {
 
 .grid-item {
   border: 1px solid black;
+  user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
 }
 
 button {

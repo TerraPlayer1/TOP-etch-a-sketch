@@ -6,23 +6,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
 </head>
 <body>
   <h1>Let's Draw!</h1>
 
   <div class="container">
     <div class="settings">
-      <button>Black</button>
-      <button>RGB</button>
-      <button>Darken</button>
-      <button>Lighten</button>
-      <button>Clear grid</button>
+      <button id="black">Black</button>
+      <button id="rgb">RGB</button>
+      <button id="darken">Darken</button>
+      <button id="lighten">Lighten</button>
+      <button id="clear">Clear grid</button>
       <input type="range" min="2" max="100" value="16" step="1" class="slider" id="myRange">
       <p>Value: <span id="demo"></span></p>
     </div>
     <div class="drawing-area"></div>
   </div>
   
-  <script src="script.js"></script>
+
 </body>
 </html>

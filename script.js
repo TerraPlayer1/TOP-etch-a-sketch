@@ -25,12 +25,20 @@ function makeGrid(rows, cols) {
 function resetGrid() {
   drawingArea.innerHTML = "";
   makeGrid(slider.value, slider.value);
-  drawBlack();
+  drawMode() // Reassign previous draw mode on grid reset
 };
 
 makeGrid(slider.value, slider.value);
 
+
+let mode;
+function drawMode() { // Check draw mode
+  return mode === "rgb" ? drawRGB()
+        :drawBlack();
+};
+
 //Here be buttons
+
 const clear = document.getElementById("clear");
 clear.onclick = function() {
   resetGrid()
@@ -39,12 +47,15 @@ clear.onclick = function() {
 const black = document.getElementById("black");
 black.onclick = function() {
   drawBlack();
+  mode = "black";
 }
 
 const rgb = document.getElementById("rgb");
 rgb.onclick = function() {
   drawRGB();
+  mode = "rgb";
 }
+
 // To do: Here go the rest of the button function calls
 
 

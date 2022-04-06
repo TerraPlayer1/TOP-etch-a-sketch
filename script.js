@@ -50,63 +50,88 @@ const black = document.getElementById("black");
 black.onclick = function() {
   drawBlack();
   mode = "black";
-}
+};
 
 const rgb = document.getElementById("rgb");
-rgb.onclick = function() {
+rgb.onclick = function(){
   drawRGB();
   mode = "rgb";
-}
+};
 
 const dark = document.getElementById("darken");
 dark.onclick = function() {
   drawDark();
   mode = "dark";
-}
+};
+// TODO: Get rid of stacking event handlers : DONE
 
 
 
 let grid = drawingArea.children;
 let draw = false;
+let blackHover = function(){
+  if(!draw) return
+  this.style.backgroundColor = "black";
+};
+let blackClick = function(){
+  this.style.backgroundColor = "black";
+};
 function drawBlack() {
   for (c = 0; c < grid.length; c++) {
-    grid[c].addEventListener('mouseover',function(){
-      if(!draw) return
-      this.style.backgroundColor = "black";
-      });
-    grid[c].addEventListener('mousedown',function(){
-      this.style.backgroundColor = "black";
-      });
+    grid[c].removeEventListener('mouseover',blackHover);
+    grid[c].addEventListener('mouseover',blackHover);
+
+    grid[c].removeEventListener('mousedown',blackClick);
+    grid[c].addEventListener('mousedown',blackClick);
   };
 };
 drawBlack();
 
+
+let rgbHover = function() {
+  if(!draw) return
+  let randomColor = Math.floor(Math.random()*16777215).toString(16);
+  this.style.backgroundColor = "#" + randomColor;
+};
+let rgbClick = function() {
+  let randomColor = Math.floor(Math.random()*16777215).toString(16);
+  this.style.backgroundColor = "#" + randomColor;
+};
 function drawRGB() {  // To do: Remove black from color pool
   for (c = 0; c < grid.length; c++) {
-    grid[c].addEventListener('mouseover',function(){
-      if(!draw) return
-        let randomColor = Math.floor(Math.random()*16777215).toString(16);
-        this.style.backgroundColor = "#" + randomColor;
-      });
-    grid[c].addEventListener('mousedown',function(){
-        let randomColor = Math.floor(Math.random()*16777215).toString(16);
-        this.style.backgroundColor = "#" + randomColor;
-      });
+    grid[c].removeEventListener('mouseover', rgbHover);
+    grid[c].addEventListener('mouseover', rgbHover);
+    
+    grid[c].removeEventListener('mousedown',rgbClick);
+    grid[c].addEventListener('mousedown',rgbClick);
   };
 };
 
-function drawDark() { //Not working for now
+
+let darkHover = function(){
+  if(!draw) return
+  increment(this);
+};
+let darkClick = function(){
+  increment(this);
+};
+function drawDark() { // TODO : Make it work with RGB pixels
+
   for (c = 0; c < grid.length; c++) {
-    grid[c].addEventListener('mouseover',function(){
-      if(!draw) return
-      increment(this);
-        // for (let i = 0; i < arr.length; i++) {
-        //   break
-        // };
-      });
-    grid[c].addEventListener('mousedown',function(){
-      increment(this);
-      });
+    grid[c].removeEventListener('mouseover',darkHover);
+    grid[c].addEventListener('mouseover',darkHover);
+
+
+
+      //   // for (let i = 0; i < arr.length; i++) {
+      //   //   break
+      //   // };
+
+      // if (this.style.backgroundColor != "rgb(0,0,0)" && this.style.backgroundColor != "rgb(255,255,255)") {
+      //   //Call special function to handle rgb pixels
+      // }
+      grid[c].removeEventListener('mousedown',darkClick);
+      grid[c].addEventListener('mousedown',darkClick);
   };
 };
 
@@ -157,12 +182,10 @@ function increment(item) {
     item.style.backgroundColor = `rgba(${cut},${1})`
     item.classList.remove("10%");
     item.classList.add("0%");
-  } else if (item.classList.contains("10%")){
-    item.style.backgroundColor = `rgba(${cut},${1})`
-    item.classList.remove("10%");
-    item.classList.add("0%");
-  }else item.style.backgroundColor = `rgba(${cut},${1})`
+  } 
+  else item.style.backgroundColor = `rgba(${cut},${1})`
 }
+
 
 window.addEventListener("mousedown", function(){
   draw = true

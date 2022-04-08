@@ -48,23 +48,35 @@ clear.onclick = function() {
 
 const black = document.getElementById("black");
 black.onclick = function() {
+  clearListeners();
   drawBlack();
   mode = "black";
+
 };
 
 const rgb = document.getElementById("rgb");
 rgb.onclick = function(){
+  clearListeners();
   drawRGB();
   mode = "rgb";
 };
 
 const dark = document.getElementById("darken");
 dark.onclick = function() {
+  clearListeners();
   drawDark();
   mode = "dark";
 };
-// TODO: Get rid of stacking event handlers : DONE
 
+function clearListeners() {
+  listener = [blackHover,blackClick,rgbHover,rgbClick,darkHover,darkClick];
+  listener.forEach(element => {
+    for (c = 0; c < grid.length; c++) {
+      grid[c].removeEventListener('mouseover',element);
+      grid[c].removeEventListener('mousedown',element);
+    };
+  });
+};
 
 
 let grid = drawingArea.children;

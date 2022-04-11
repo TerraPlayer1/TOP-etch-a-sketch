@@ -150,8 +150,9 @@ function drawDark() {
 };
 function increment(item) {
   if (mode === "dark"){
-  let val = parseFloat(item.style.filter.replace(/[^-\d\.]/g, ''))
-  item.style.filter = `brightness(${val-10}%)`
+    let color = item.style.backgroundColor.replace(/[^-\d\,\.]+/g, "")
+    let colorSplit = color.split(",").map(Number);
+    item.style.backgroundColor = `rgb(${colorSplit[0]-20},${colorSplit[1]-20},${colorSplit[2]-20})`;
   } else item.style.filter = "brightness(100%)"
 };
 
@@ -173,9 +174,9 @@ function drawLight() {
 }; 
 function decrement(item) {
   if (mode === "light"){
-  let color = item.style.backgroundColor.replace(/[^-\d\,\.]+/g, "")
-  let colorSplit = color.split(",").map(Number);
-  item.style.backgroundColor = `rgb(${colorSplit[0]+20},${colorSplit[1]+20},${colorSplit[2]+20})`;
+    let color = item.style.backgroundColor.replace(/[^-\d\,\.]+/g, "")
+    let colorSplit = color.split(",").map(Number);
+    item.style.backgroundColor = `rgb(${colorSplit[0]+20},${colorSplit[1]+20},${colorSplit[2]+20})`;
   } else alert("Mode not selected")
 };
 

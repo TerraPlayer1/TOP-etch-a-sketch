@@ -38,6 +38,7 @@ let mode;
 function drawMode() { // Check draw mode
   return mode === "rgb" ? drawRGB()
         :mode === "dark" ? drawDark()
+        :mode === "light"? drawLight()
         :drawBlack();
 };
 
@@ -70,8 +71,15 @@ dark.onclick = function() {
   mode = "dark";
 };
 
+const light = document.getElementById("lighten");
+light.onclick = function() {
+  clearListeners();
+  drawLight();
+  mode = "light";
+}
+
 function clearListeners() {
-  listener = [blackHover,blackClick,rgbHover,rgbClick,darkHover,darkClick];
+  listener = [blackHover,blackClick,rgbHover,rgbClick,darkHover,darkClick,lightHover,lightClick];
   listener.forEach(element => {
     for (c = 0; c < grid.length; c++) {
       grid[c].removeEventListener('mouseover',element);
@@ -85,10 +93,10 @@ let grid = drawingArea.children;
 let draw = false;
 let blackHover = function(){
   if(!draw) return
-  this.style.backgroundColor = "black";
+  this.style.backgroundColor = "rgb(0,0,0)";
 };
 let blackClick = function(){
-  this.style.backgroundColor = "black";
+  this.style.backgroundColor = "rgb(0,0,0)";
 };
 function drawBlack() {
   for (c = 0; c < grid.length; c++) {
@@ -140,12 +148,35 @@ function drawDark() {
     grid[c].addEventListener('mousedown',darkClick);
   };
 };
-
 function increment(item) {
   if (mode === "dark"){
   let val = parseFloat(item.style.filter.replace(/[^-\d\.]/g, ''))
   item.style.filter = `brightness(${val-10}%)`
   } else item.style.filter = "brightness(100%)"
+};
+
+let lightHover = function() {
+  if(!draw) return
+  decrement(this);
+};
+let lightClick = function() {
+  decrement(this);
+};
+function drawLight() {
+  for (c = 0; c < grid.length; c++) {
+    grid[c].removeEventListener('mouseover',lightHover);
+    grid[c].addEventListener('mouseover',lightHover);
+
+    grid[c].removeEventListener('mousedown',lightClick);
+    grid[c].addEventListener('mousedown',lightClick);
+  };
+}; 
+function decrement(item) {
+  if (mode === "light"){
+  let color = item.style.backgroundColor.replace(/[^-\d\,\.]+/g, "")
+  let colorSplit = color.split(",").map(Number);
+  item.style.backgroundColor = `rgb(${colorSplit[0]+20},${colorSplit[1]+20},${colorSplit[2]+20})`;
+  } else alert("Mode not selected")
 };
 
 window.addEventListener("mousedown", function(){

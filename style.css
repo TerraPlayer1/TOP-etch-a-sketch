@@ -1,6 +1,7 @@
 :root {
   --grid-rows: 1;
   --grid-cols: 1;
+  --gridType: solid;
 }
 
 h1 {
@@ -42,7 +43,17 @@ body {
 }
 
 .grid-item {
-  border: 1px solid black;
+  border: 1px var(--gridType) black;
+  user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
+}
+
+#size {
+  color: white;
+  text-shadow: 2px 2px 4px black;
   user-select: none;
   -moz-user-select: none;
   -khtml-user-select: none;

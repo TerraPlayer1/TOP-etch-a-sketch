@@ -2,8 +2,9 @@ const container = document.querySelector(".container");  // Html imports
 const drawingArea = document.querySelector(".drawing-area");
 const slider = document.getElementById("myRange")
 const output = document.getElementById("demo");
+const root = document.documentElement;
 
-output.innerHTML = slider.value+ " * " + slider.value; // Display the default slider value
+output.innerText = slider.value+ " * " + slider.value; // Display the default slider value
 
 // Update the current slider value (each time you drag the slider handle)
 slider.oninput = function() {
@@ -19,8 +20,7 @@ function makeGrid(rows, cols) {
   drawingArea.style.setProperty('--grid-cols', cols);
   for (c = 0; c < (rows * cols); c++) {         // Create grid
     let cell = document.createElement("div");
-    drawingArea.appendChild(cell).className = "grid-item";
-    cell.classList.add("100%");
+    drawingArea.appendChild(cell).className = "grid-item"
     cell.style.backgroundColor = "rgb(255,255,255)"
     cell.style.filter = "brightness(100%)"
 }};
@@ -48,7 +48,10 @@ const clear = document.getElementById("clear");
 clear.onclick = function() {
   resetGrid()
 }
-
+const toggle = document.getElementById("toggle");
+toggle.onclick = function() {
+  toggleGrid();
+}
 const black = document.getElementById("black");
 black.onclick = function() {
   clearListeners();
@@ -156,6 +159,7 @@ function increment(item) {
   } else item.style.filter = "brightness(100%)"
 };
 
+
 let lightHover = function() {
   if(!draw) return
   decrement(this);
@@ -180,6 +184,27 @@ function decrement(item) {
   } else alert("Mode not selected")
 };
 
+
+let gridStatus = "solid";
+function toggleGrid() {
+  return gridStatus === "solid" ? solid()
+        :gridStatus === "none" ? none()
+        :solid();
+
+  function solid(){
+      for (c = 0; c < grid.length; c++) {
+        root.style.setProperty("--gridType", "none");
+      };
+    gridStatus = "none";
+  };
+
+  function none() {
+    for (c = 0; c < grid.length; c++) {
+      root.style.setProperty("--gridType", "solid");
+    };
+    gridStatus = "solid";
+  }
+};
 window.addEventListener("mousedown", function(){
   draw = true
 });

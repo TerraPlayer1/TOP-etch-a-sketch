@@ -3,7 +3,7 @@ const drawingArea = document.querySelector(".drawing-area");
 const slider = document.getElementById("myRange")
 const output = document.getElementById("demo");
 const root = document.documentElement;
-
+const colorVal = document.getElementById("color-picker");
 output.innerText = slider.value+ " * " + slider.value; // Display the default slider value
 
 // Update the current slider value (each time you drag the slider handle)
@@ -39,6 +39,7 @@ function drawMode() { // Check draw mode
   return mode === "rgb" ? drawRGB()
         :mode === "dark" ? drawDark()
         :mode === "light"? drawLight()
+        :mode === "color"? drawColor()
         :drawBlack();
 };
 
@@ -52,12 +53,19 @@ const toggle = document.getElementById("toggle");
 toggle.onclick = function() {
   toggleGrid();
 }
+
+const color = document.getElementById("color");
+color.onclick = function(){
+  clearListeners();
+  drawColor();
+  mode = "color";
+}
+
 const black = document.getElementById("black");
 black.onclick = function() {
   clearListeners();
   drawBlack();
   mode = "black";
-
 };
 
 const rgb = document.getElementById("rgb");
@@ -82,7 +90,7 @@ light.onclick = function() {
 }
 
 function clearListeners() {
-  listener = [blackHover,blackClick,rgbHover,rgbClick,darkHover,darkClick,lightHover,lightClick];
+  listener = [blackHover,blackClick,rgbHover,rgbClick,darkHover,darkClick,lightHover,lightClick,colorClick,colorHover];
   listener.forEach(element => {
     for (c = 0; c < grid.length; c++) {
       grid[c].removeEventListener('mouseover',element);
@@ -185,6 +193,24 @@ function decrement(item) {
 };
 
 
+let colorHover = function() {
+  if(!draw) return
+  this.style.backgroundColor = colorVal.value;
+};
+let colorClick = function() {
+  this.style.backgroundColor = colorVal.value;
+};
+function drawColor() {
+  for (c = 0; c < grid.length; c++) {
+    grid[c].removeEventListener('mouseover',colorHover);
+    grid[c].addEventListener('mouseover',colorHover);
+
+    grid[c].removeEventListener('mousedown',colorClick);
+    grid[c].addEventListener('mousedown',colorClick);
+  };
+};
+
+
 let gridStatus = "solid";
 function toggleGrid() {
   return gridStatus === "solid" ? solid()
@@ -205,6 +231,8 @@ function toggleGrid() {
     gridStatus = "solid";
   }
 };
+
+
 window.addEventListener("mousedown", function(){
   draw = true
 });

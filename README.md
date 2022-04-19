@@ -1,1 +1,1 @@
-# top-etch-a-sketch
+A basic pixelart site made for The Odin Project.
